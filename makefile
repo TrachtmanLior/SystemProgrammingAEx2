@@ -3,7 +3,7 @@ AR = ar
 
 #name program object files
 
-MAIN_OBJECT = main.o
+MAIN_OBJECT = my_graph.o
 LIB_OBJECTS = my_mat.o
 
 #static library for mat
@@ -25,7 +25,7 @@ prog: $(MAIN_OBJECT) $(LIB_S)
 $(LIB_S): $(LIB_OBJECTS)
 	$(AR) rcs $@ $^
 	
-$(MAIN_OBJECT): main.c $(DEPS)
+$(MAIN_OBJECT): my_graph.c $(DEPS)
 	$(CC) $(CFLAGS) -c $<
 
 $(LIB_OBJECTS): my_mat.c $(DEPS)

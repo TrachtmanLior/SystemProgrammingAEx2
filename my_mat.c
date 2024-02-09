@@ -1,12 +1,13 @@
 #include "my_mat.h"
 #include <stdbool.h>
 #include <math.h>
+#include <stdio.h>
 
 void getMatrix(int** matrix, int size){
 
     for(int i=0;i<size;i++){
         for(int j=0; j<size;j++){
-            scanf("%d", matrix[i][j]);
+            scanf("%d", &matrix[i][j]);
         }
     }
 }
@@ -25,11 +26,11 @@ void floydWarshallAlgorithm(int** matrix, int size){
 }
 
 int existPath(int** matrix, int i , int j, int size){
-    floydWarshallAlgorithm(**matrix, size);
+    floydWarshallAlgorithm(matrix, size);
     return (matrix[i][j] != INFINITY && matrix[i][j] != 0);
 }
 
 int shortestPath(int** matrix, int i , int j, int size){
-    floydWarshallAlgorithm(**matrix, size);
-    return (matrix[i][j] != INFINITY && matrix[i][j] != 0);
+    floydWarshallAlgorithm(matrix, size);
+    return matrix[i][j];
 }

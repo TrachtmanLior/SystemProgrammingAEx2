@@ -17,10 +17,10 @@ CFLAGS = -Wall -g
 # Declare non-files
 .PHONY: all clean
 
-all: prog
+all: my_graph
 
 # program
-prog: $(MAIN_OBJECT) $(LIB_S)
+my_graph: $(MAIN_OBJECT) $(LIB_S)
 	$(CC) -o $@ $< $(CFLAGS) ./$(LIB_S) -L.
 
 # All object files:

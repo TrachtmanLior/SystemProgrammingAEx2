@@ -32,4 +32,4 @@ $(LIB_S): $(LIB_OBJECTS)
 	$(AR) rcs $@ $^
 
 clean:
-	rm -f *.o *.a my_graph my_Knapsack *.gch *.txt
+	rm -f *.o *.a my_graph my_Knapsack *.gch

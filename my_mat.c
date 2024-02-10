@@ -10,6 +10,10 @@ void getMatrix(int matrix[][MATRIX_SIZE], int size){
             //     printf("Please re-enter a value!");
             // }
             scanf("%d", &matrix[i][j]);
+            // 0 in matrix means no path between i and j, set it to NO_PATH to make it easier for the algo
+            // TODO: add "(i != j) &&" to if??? It failed the test but is correct??
+            if (matrix[i][j] == 0)
+                matrix[i][j] = NO_PATH;
         }
     }
 }
@@ -25,16 +29,15 @@ void floydWarshallAlgorithm(int matrix[][MATRIX_SIZE], int size){
             // no reason to check row k
             if (i != k) {
                 for(int j=0;j<size;j++){
-                    // no reason to check col k and no reason to check diagonal of matrix (always 0)
-                    if (j != k || i==j){
-                        if(matrix[i][j] > matrix[i][k] + matrix[k][j]){
+                    // no reason to check col k and no reason to check diagonal of matrix (always NO_PATH)
+                    if (j != k && i!=j){
+                        if(matrix[i][k] != NO_PATH && matrix[k][j] != NO_PATH
+                        && (matrix[i][j] > matrix[i][k] + matrix[k][j])){
                             matrix[i][j] = matrix[i][k] + matrix[k][j];
                         }
                     }
-                    
                 }
             }
-            
         }
     }
 }
@@ -43,12 +46,14 @@ void floydWarshallAlgorithm(int matrix[][MATRIX_SIZE], int size){
 Returns if there is a path between i and j in matrix.
 */
 int existPath(int matrix[][MATRIX_SIZE], int i , int j, int size){
-    return (matrix[i][j] != INFINITY);
+    // a path to yourself always exists
+    // TODO: add "(i != j) ||"" to return? It failed the test but is correct??
+    return (matrix[i][j] != NO_PATH);
 }
 
 /* Assuming Floyd's algorithm has already been done.
 Returns the shortest path betweeen i and j in matrix.
 */
 int shortestPath(int matrix[][MATRIX_SIZE], int i , int j, int size){
-    return matrix[i][j];
+    return matrix[i][j] != NO_PATH ? matrix[i][j] : -1;
 }

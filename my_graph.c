@@ -9,11 +9,15 @@ int main(){
 
     int matrix[MATRIX_SIZE][MATRIX_SIZE];
     bool didAlgoRun = false;        // Tell us if the Floyd's algo already ran for the current matrix - so we don't run it again
+    bool keepGettingInput = true;       // false when 'D' or EOF is inputed
 
-    scanf("%c", &operator);
+    
 
     // Assuming the user enters values to matrix (A) before trying B or C
-    switch(operator){
+    while (keepGettingInput){
+        scanf("%c", &operator);
+
+        switch(operator){
         case 'A':
             getMatrix(matrix, MATRIX_SIZE);
             didAlgoRun = false;
@@ -36,8 +40,11 @@ int main(){
             break;
         case EOF:
         case 'D':
+            keepGettingInput = false;
             break;
     }
+    }
+    
 
     return 0;
 }

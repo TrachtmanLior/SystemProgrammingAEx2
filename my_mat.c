@@ -48,6 +48,6 @@ int existPath(int matrix[][MATRIX_SIZE], int i , int j, int size){
 /* Assuming Floyd's algorithm has already been done.
 Returns the shortest path betweeen i and j in matrix.
 */
-int shortestPath(int** matrix, int i , int j, int size){
+int shortestPath(int matrix[][MATRIX_SIZE], int i , int j, int size){
     return matrix[i][j];
 }

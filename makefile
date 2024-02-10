@@ -1,35 +1,35 @@
 CC = gcc
 AR = ar
 
-#name program object files
 
+# Objects variables
 MAIN_OBJECT = my_graph.o
 LIB_OBJECTS = my_mat.o
 
-#static library for mat
+DEPS = my_mat.h
+
+# Librarys variables
 LIB_S = lib_mat.a
 
-DEPS = my_mat.h
+# FLAGS
 CFLAGS = -Wall -g
 
-# Declare them as non-files
+# Declare non-files
 .PHONY: all clean
 
-#all make
 all: prog
 
-#program
+# program
 prog: $(MAIN_OBJECT) $(LIB_S)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) -o $@ $< $(CFLAGS) ./$(LIB_S) -L.
 
+# All object files:
+*.o: *.c $(DEPS)
+	$(CC) $(CFLAGS) -c $^
+
+# Libraries:
 $(LIB_S): $(LIB_OBJECTS)
 	$(AR) rcs $@ $^
-	
-$(MAIN_OBJECT): my_graph.c $(DEPS)
-	$(CC) $(CFLAGS) -c $<
-
-$(LIB_OBJECTS): my_mat.c $(DEPS)
-	$(CC) $(CFLAGS) -c $<
 
 clean:
 	rm -f *.o *.a prog *.gch

@@ -44,6 +44,7 @@ int main(){
             break;
         case EOF:
         case 'D':
+            printf("\n");
             keepGettingInput = false;
             break;
         }

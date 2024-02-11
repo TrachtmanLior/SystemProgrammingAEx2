@@ -6,8 +6,12 @@
 void getMatrix(int matrix[][MATRIX_SIZE], int size){
     for(int i=0;i<size;i++){
         for(int j=0; j<size;j++){
+            // while (scanf("%d", &matrix[i][j]) != 1){
+            //     printf("Please re-enter a value!");
+            // }
             scanf("%d", &matrix[i][j]);
             // 0 in matrix means no path between i and j, set it to NO_PATH to make it easier for the algo
+            // TODO: add "(i != j) &&" to if??? It failed the test but is correct??
             if (matrix[i][j] == 0)
                 matrix[i][j] = NO_PATH;
         }
@@ -43,6 +47,7 @@ Returns if there is a path between i and j in matrix.
 */
 int existPath(int matrix[][MATRIX_SIZE], int i , int j, int size){
     // a path to yourself always exists
+    // TODO: add "(i != j) ||"" to return? It failed the test but is correct??
     return (matrix[i][j] != NO_PATH);
 }
 
@@ -51,4 +56,5 @@ Returns the shortest path betweeen i and j in matrix.
 */
 int shortestPath(int matrix[][MATRIX_SIZE], int i , int j, int size){
     return matrix[i][j] != NO_PATH ? matrix[i][j] : -1;
+
 }

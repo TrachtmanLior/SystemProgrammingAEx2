@@ -13,7 +13,6 @@ int existPath(int[][MATRIX_SIZE], int, int, int);
 int shortestPath(int[][MATRIX_SIZE], int, int, int);
 
 //Algo to set shortest path in each cell
-void floydWarshallAlgorithm(int[][MATRIX_SIZE], int);
-
+void floydWarshallAlgorithm(int[][MATRIX_SIZE], int size);
 
 #endif

@@ -1,7 +1,9 @@
 #include <stdio.h>
+// #include <stdbool.h>
 
 #define NUM_OF_ITEMS 5
 #define MAX_WEIGHT 20
+// #define MAX(a, b) ((a < b) ? b : a)
 
 typedef struct
 {
@@ -36,7 +38,9 @@ int main() {
 /* Add items to given items arrays, of size "size" */
 void addItems(Item items[], int size){
     for (int i = 0; i < size; i++){
+        // if (scanf("%c%d%d", &items[i].letter, &items[i].value, &items[i].weight) != 3)
         scanf(" %c %d %d", &items[i].letter, &items[i].value, &items[i].weight);
+        // items[i].chosen = false;
     }
 }
 
@@ -75,6 +79,7 @@ int getBestKnapsack(Item items[], int numOfItems, int maxWeight, int result[]){
     while (i > 0 && j > 0){
         if (dp[i-1][j] != dp[i][j]){
             // Item was chosen, go to the point before choosing it
+            // items[i].chosen = true;
             result[i-1] = 1;
             j -= items[i-1].weight;
             i--;

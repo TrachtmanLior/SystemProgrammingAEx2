@@ -23,7 +23,7 @@ all: my_graph my_Knapsack
 # Programs
 my_graph: $(GRAPH_MAIN_OBJECT) $(LIB_S)
 #	$(CC) -o $@ $< $(CFLAGS) ./$(LIB_S) -L.
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $^ -o $@
 
 my_Knapsack: $(KNAPSACK_MAIN_OBJECT)
 #	$(CC) -o $@ $^ $(CFLAGS) -lm

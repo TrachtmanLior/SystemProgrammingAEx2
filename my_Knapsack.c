@@ -16,8 +16,6 @@ typedef struct
 void addItems(Item[], int);
 int getBestKnapsack(Item[], int, int, int[]);
 int max(int, int);
-void initializeMatrixToZero(int[][MAX_WEIGHT+1], int, int);
-
 
 int main() {
     Item items[NUM_OF_ITEMS];
@@ -52,7 +50,6 @@ See more: https://en.wikipedia.org/wiki/Knapsack_problem
 */
 int getBestKnapsack(Item items[], int numOfItems, int maxWeight, int result[]){
     int dp[numOfItems+1][maxWeight+1];       // Used for Dynamic Programming
-    initializeMatrixToZero(dp, numOfItems+1, maxWeight+1);
 
     int i, j;
     // i represents an item (num of available items), j represents the available weight in the bag
@@ -63,9 +60,9 @@ int getBestKnapsack(Item items[], int numOfItems, int maxWeight, int result[]){
                 dp[i][j] = 0;
             }
             // There is space in the bag to include item i
-            else if(items[i].weight <= j){
+            else if(items[i-1].weight <= j){
                 // Check if it's better to include it or not
-                dp[i][j] = max(dp[i-1][j-items[i].weight] + items[i].value, dp[i-1][j]);
+                dp[i][j] = max(dp[i-1][j-items[i-1].weight] + items[i-1].value, dp[i-1][j]);
             }
             // Not enough space in the bag - don't include item
             else{
@@ -82,13 +79,13 @@ int getBestKnapsack(Item items[], int numOfItems, int maxWeight, int result[]){
         if (dp[i-1][j] != dp[i][j]){
             // Item was chosen, go to the point before choosing it
             // items[i].chosen = true;
-            result[i] = 1;
+            result[i-1] = 1;
+            j -= items[i-1].weight;
             i--;
-            j -= items[i].weight;
         }
         else{
             // Item wasn't chosen, go to the item above and check there
-            result[i] = 0;
+            result[i-1] = 0;
             i--;
         }
     }
@@ -98,12 +95,4 @@ int getBestKnapsack(Item items[], int numOfItems, int maxWeight, int result[]){
 
 int max(int a, int b){
     return (a < b) ? b : a;
-}
-
-void initializeMatrixToZero(int matrix[][MAX_WEIGHT+1], int rows, int cols){
-    for (int i = 0; i < rows; i++){
-        for (int j = 0; j < cols; j++){
-            matrix[i][j] = 0;
-        }
-    }
 }

@@ -6,7 +6,6 @@ int main(){
 
     int i,j;
     char operator;
-
     int matrix[MATRIX_SIZE][MATRIX_SIZE];
     bool didAlgoRun = false;        // Tell us if the Floyd's algo already ran for the current matrix - so we don't run it again
     bool keepGettingInput = true;       // false when 'D' or EOF is inputed
@@ -49,5 +48,6 @@ int main(){
             break;
         }
     }
+
     return 0;
 }

@@ -1,35 +1,39 @@
 CC = gcc
 AR = ar
 
-#name program object files
-
-MAIN_OBJECT = my_graph.o
+# Objects variables
+GRAPH_MAIN_OBJECT = my_graph.o
 LIB_OBJECTS = my_mat.o
+KNAPSACK_MAIN_OBJECT = my_Knapsack.o
 
-#static library for mat
-LIB_S = lib_mat.a
 
 DEPS = my_mat.h
+
+# Librarys variables
+LIB_S = lib_mat.a
+
+# FLAGS
 CFLAGS = -Wall -g
 
-# Declare them as non-files
+# Declare non-files
 .PHONY: all clean
 
-#all make
-all: prog
+all: my_graph my_Knapsack
 
-#program
-prog: $(MAIN_OBJECT) $(LIB_S)
-	$(CC) $(CFLAGS) $^ -o $@
+# Programs
+my_graph: $(GRAPH_MAIN_OBJECT) $(LIB_S)
+	$(CC) -o $@ $< $(CFLAGS) ./$(LIB_S) -L.
 
+my_Knapsack: $(KNAPSACK_MAIN_OBJECT)
+	$(CC) -o $@ $^ $(CFLAGS) -lm
+
+# All object files:
+*.o: *.c $(DEPS)
+	$(CC) $(CFLAGS) -c $^
+
+# Libraries:
 $(LIB_S): $(LIB_OBJECTS)
 	$(AR) rcs $@ $^
-	
-$(MAIN_OBJECT): my_graph.c $(DEPS)
-	$(CC) $(CFLAGS) -c $<
-
-$(LIB_OBJECTS): my_mat.c $(DEPS)
-	$(CC) $(CFLAGS) -c $<
 
 clean:
-	rm -f *.o *.a prog *.gch
+	rm -f *.o *.a my_graph my_Knapsack *.gch

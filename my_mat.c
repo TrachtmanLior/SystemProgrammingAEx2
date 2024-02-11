@@ -50,5 +50,5 @@ int existPath(int matrix[][MATRIX_SIZE], int i , int j, int size){
 Returns the shortest path betweeen i and j in matrix.
 */
 int shortestPath(int matrix[][MATRIX_SIZE], int i , int j, int size){
-    return matrix[i][j] != NO_PATH ? matrix[i][j] : 0;
+    return matrix[i][j] != NO_PATH ? matrix[i][j] : -1;
 }

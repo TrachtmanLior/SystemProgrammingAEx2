@@ -9,12 +9,12 @@ int main(){
     int matrix[MATRIX_SIZE][MATRIX_SIZE];
     bool didAlgoRun = false;        // Tell us if the Floyd's algo already ran for the current matrix - so we don't run it again
     bool keepGettingInput = true;       // false when 'D' or EOF is inputed
-    
+    bool dropLine = false;       // used to drop line only before B or C new inputs
 
     // Assuming the user enters values to matrix (A) before trying B or C
     while (keepGettingInput){
         scanf("%c", &operator);
-        if (operator != ' ' && operator != 'D' && operator != EOF && operator != 'A'){
+        if (dropLine && operator != ' ' && operator != 'D' && operator != EOF && operator != 'A'){
             printf("\n");
         }
         switch(operator){
@@ -37,11 +37,13 @@ int main(){
                 didAlgoRun = true;
             }            
             printf("%d", shortestPath(matrix, i, j, MATRIX_SIZE));
+            dropLine = true;
             break;
         case EOF:
         case 'D':
             printf("\n");
             keepGettingInput = false;
+            dropLine = true;
             break;
         }
     }

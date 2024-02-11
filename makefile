@@ -1,10 +1,11 @@
 CC = gcc
 AR = ar
 
-
 # Objects variables
-MAIN_OBJECT = my_graph.o
+GRAPH_MAIN_OBJECT = my_graph.o
 LIB_OBJECTS = my_mat.o
+KNAPSACK_MAIN_OBJECT = my_Knapsack.o
+
 
 DEPS = my_mat.h
 
@@ -17,11 +18,14 @@ CFLAGS = -Wall -g
 # Declare non-files
 .PHONY: all clean
 
-all: my_graph
+all: my_graph my_Knapsack
 
-# program
-my_graph: $(MAIN_OBJECT) $(LIB_S)
+# Programs
+my_graph: $(GRAPH_MAIN_OBJECT) $(LIB_S)
 	$(CC) -o $@ $< $(CFLAGS) ./$(LIB_S) -L.
+
+my_Knapsack: $(KNAPSACK_MAIN_OBJECT)
+	$(CC) -o $@ $^ $(CFLAGS) -lm
 
 # All object files:
 *.o: *.c $(DEPS)

@@ -35,6 +35,7 @@ int main() {
     return 0;
 }
 
+/* Add items to given items arrays, of size "size" */
 void addItems(Item items[], int size){
     for (int i = 0; i < size; i++){
         // if (scanf("%c%d%d", &items[i].letter, &items[i].value, &items[i].weight) != 3)
@@ -44,15 +45,15 @@ void addItems(Item items[], int size){
 }
 
 /* Gets an array of items, it's size and the maximum weight allowed in the knapsack,
-and a knapsack string used to return data.
-Returns the max profit throught the func, and the names of chosen items through the "knapack" var.
-See more: https://en.wikipedia.org/wiki/Knapsack_problem 
+and a "result" array to return the selected items. Returns the max profit.
+Using Dynamic Programming, see more: https://en.wikipedia.org/wiki/Knapsack_problem .
 */
 int getBestKnapsack(Item items[], int numOfItems, int maxWeight, int result[]){
     int dp[numOfItems+1][maxWeight+1];       // Used for Dynamic Programming
-
     int i, j;
+
     // i represents an item (num of available items), j represents the available weight in the bag
+    // row 'i' in "dp" represents cell 'i-1' in items/result
     for (i = 0; i <= numOfItems; i++){
         for (j = 0; j <= maxWeight; j++){
             // No space for items || No items to put inside => 0 Profit
@@ -90,7 +91,7 @@ int getBestKnapsack(Item items[], int numOfItems, int maxWeight, int result[]){
         }
     }
 
-    return dp[NUM_OF_ITEMS][MAX_WEIGHT];
+    return dp[numOfItems][maxWeight];
 }
 
 int max(int a, int b){

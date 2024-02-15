@@ -30,7 +30,7 @@ int main(){
 
     for(int i=0;i<ITEMS;i++){
         if(result[i] == 1){
-             printf("%c", &item[i].letter);
+             printf("%c", item[i].letter);
         }
     }
 

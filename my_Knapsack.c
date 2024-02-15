@@ -1,93 +1,81 @@
 #include <stdio.h>
 
-#define NUM_OF_ITEMS 5
-#define MAX_WEIGHT 20
+
+#define CAPACITY 20
+#define ITEMS 5
 
 typedef struct
 {
     char letter;
     int weight;
     int value;
-} Item;
+} Items;
 
-void addItems(Item[], int);
-int getBestKnapsack(Item[], int, int, int[]);
-int max(int, int);
+//INIT
+int max(int,int);
+int knapSack(Items[], int[]);
 
-int main() {
-    Item items[NUM_OF_ITEMS];
-    int result[NUM_OF_ITEMS] = {0};           // 1 - item was chosen, 0 - item wasn't chosen
 
-    addItems(items, NUM_OF_ITEMS);
 
-    printf("Maximum profit: %d\n", getBestKnapsack(items, NUM_OF_ITEMS, MAX_WEIGHT, result));
 
-    printf("Selected items:");
-    for (int i = 0; i < NUM_OF_ITEMS; i++){
-        if (result[i] == 1){
-            printf(" %c", items[i].letter);
+int main(){
+    //create array of 5 items that has weight and values(b)
+    Items item[CAPACITY];
+    int result[ITEMS]; 
+    for(int i=0;i<ITEMS;i++){
+        scanf("%c%d%d", &item[i].letter,  &item[i].value, &item[i].weight);
+    }
+
+    printf("Max profit is: %d", knapSack(item, result));
+
+    for(int i=0;i<ITEMS;i++){
+        if(result[i] == 1){
+             printf("%c", &item[i].letter);
         }
     }
 
     return 0;
 }
 
-/* Add items to given items arrays, of size "size" */
-void addItems(Item items[], int size){
-    for (int i = 0; i < size; i++){
-        scanf(" %c %d %d", &items[i].letter, &items[i].value, &items[i].weight);
-    }
+
+int max(int a, int b){
+    return (a>b) ? a:b;
 }
 
-/* Gets an array of items, it's size and the maximum weight allowed in the knapsack,
-and a "result" array to return the selected items. Returns the max profit.
-Using Dynamic Programming, see more: https://en.wikipedia.org/wiki/Knapsack_problem .
-*/
-int getBestKnapsack(Item items[], int numOfItems, int maxWeight, int result[]){
-    int dp[numOfItems+1][maxWeight+1];       // Used for Dynamic Programming
-    int i, j;
+int knapSack(Items item[], int result[]){
+    int dp[ITEMS+1][CAPACITY+1];
+    int i,j;
 
-    // i represents an item (num of available items), j represents the available weight in the bag
-    // row 'i' in "dp" represents cell 'i-1' in items/result
-    for (i = 0; i <= numOfItems; i++){
-        for (j = 0; j <= maxWeight; j++){
-            // No space for items || No items to put inside => 0 Profit
-            if (i == 0 || j == 0){
+    for(i=0;i <= ITEMS; i++){
+        for(j=0; j<= CAPACITY; j++){
+            //weight limit is 0 or there are no items to choose
+            if(i==0 || j==0){
                 dp[i][j] = 0;
             }
-            // There is space in the bag to include item i
-            else if(items[i-1].weight <= j){
-                // Check if it's better to include it or not
-                dp[i][j] = max(dp[i-1][j-items[i-1].weight] + items[i-1].value, dp[i-1][j]);
+            // found space to store an item
+            else if(item[i-1].weight <= j){
+                dp[i][j] = max(dp[i-1][j] ,item[i].value + dp[i-1][j - item[i].weight]);
             }
-            // Not enough space in the bag - don't include item
             else{
                 dp[i][j] = dp[i-1][j];
             }
         }
     }
 
-    i = numOfItems;
-    j = maxWeight;
+    i=ITEMS;
+    j=CAPACITY;
 
-    // Trace chosen items (i and j start at the bottom left of the table)
-    while (i > 0 && j > 0){
-        if (dp[i-1][j] != dp[i][j]){
-            // Item was chosen, go to the point before choosing it
+    while(i>0 || j>0){
+        //added the item
+        if(dp[i][j] > dp[i-1][j]){
             result[i-1] = 1;
-            j -= items[i-1].weight;
+            j-=item[i-1].weight;
             i--;
         }
+        //didn't add the item
         else{
-            // Item wasn't chosen, go to the item above and check there
             result[i-1] = 0;
             i--;
         }
     }
-
-    return dp[numOfItems][maxWeight];
-}
-
-int max(int a, int b){
-    return (a < b) ? b : a;
 }

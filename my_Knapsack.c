@@ -65,7 +65,7 @@ int knapSack(Items item[], int result[]){
     i=ITEMS;
     j=CAPACITY;
 
-    while(i>0 || j>0){
+    while(i>0 && j>0){
         //added the item
         if(dp[i][j] > dp[i-1][j]){
             result[i-1] = 1;

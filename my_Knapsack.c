@@ -67,7 +67,7 @@ int knapSack(Items item[], int result[]){
 
     while(i>0 && j>0){
         //added the item
-        if(dp[i][j] > dp[i-1][j]){
+        if(dp[i][j] != dp[i-1][j]){
             result[i-1] = 1;
             j-=item[i-1].weight;
             i--;

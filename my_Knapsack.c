@@ -26,7 +26,7 @@ int main(){
         scanf("%c%d%d", &item[i].letter,  &item[i].value, &item[i].weight);
     }
 
-    printf("Max profit is: %d", knapSack(item, result));
+    printf("Max profit is: %d\n", knapSack(item, result));
 
     for(int i=0;i<ITEMS;i++){
         if(result[i] == 1){
@@ -54,7 +54,7 @@ int knapSack(Items item[], int result[]){
             }
             // found space to store an item
             else if(item[i-1].weight <= j){
-                dp[i][j] = max(dp[i-1][j] ,item[i].value + dp[i-1][j - item[i].weight]);
+                dp[i][j] = max(dp[i-1][j] ,item[i-1].value + dp[i-1][j - item[i-1].weight]);
             }
             else{
                 dp[i][j] = dp[i-1][j];

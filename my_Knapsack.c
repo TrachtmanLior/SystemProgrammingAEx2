@@ -78,4 +78,5 @@ int knapSack(Items item[], int result[]){
             i--;
         }
     }
+    return dp[ITEMS][CAPACITY];
 }

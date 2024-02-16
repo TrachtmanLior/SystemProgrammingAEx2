@@ -22,6 +22,7 @@ int main(){
     //create array of 5 items that has weight and values(b)
     Items item[CAPACITY];
     int result[ITEMS] = {0};
+
     for(int i=0;i<ITEMS;i++){
         scanf("%c%d%d", &item[i].letter,  &item[i].value, &item[i].weight);
     }
